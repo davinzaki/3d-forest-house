@@ -8,6 +8,7 @@ html,
 body
 {
     overflow: hidden;
+    font-family: 'Inter', sans-serif;
 }
 
 .webgl
@@ -16,4 +17,175 @@ body
     top: 0;
     left: 0;
     outline: none;
+}
+
+/* ─── Music Player ─── */
+.music-player {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px 8px 8px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
+    cursor: default;
+    user-select: none;
+}
+
+.music-player:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Play / Pause button */
+.music-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4fc3f7, #0288d1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    flex-shrink: 0;
+    box-shadow: 0 2px 12px rgba(79, 195, 247, 0.35);
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 20px rgba(79, 195, 247, 0.5);
+}
+
+.music-btn:active {
+    transform: scale(0.95);
+}
+
+.music-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.music-icon.hidden {
+    display: none;
+}
+
+/* Song info */
+.music-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.song-title {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* ─── Equalizer Bars ─── */
+.equalizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 14px;
+}
+
+.eq-bar {
+    width: 3px;
+    border-radius: 2px;
+    background: linear-gradient(to top, #4fc3f7, #81d4fa);
+    height: 4px;
+    transition: height 0.15s ease;
+}
+
+/* Paused state — all bars stay short */
+.equalizer.paused .eq-bar {
+    height: 4px !important;
+    animation: none !important;
+}
+
+/* Playing state — animate bars */
+.equalizer.playing .eq-bar {
+    animation: equalize 0.6s ease-in-out infinite alternate;
+}
+
+.equalizer.playing .eq-bar:nth-child(1) { animation-delay: 0s;    }
+.equalizer.playing .eq-bar:nth-child(2) { animation-delay: 0.15s; }
+.equalizer.playing .eq-bar:nth-child(3) { animation-delay: 0.05s; }
+.equalizer.playing .eq-bar:nth-child(4) { animation-delay: 0.2s;  }
+.equalizer.playing .eq-bar:nth-child(5) { animation-delay: 0.1s;  }
+
+@keyframes equalize {
+    0%   { height: 4px;  }
+    100% { height: 14px; }
+}
+
+/* ─── Song Credit ─── */
+.song-credit {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    font-weight: 400;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+}
+
+.song-credit:hover {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+}
+
+/* ─── GitHub Watermark ─── */
+.watermark {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px 8px 12px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease,
+                color 0.2s ease;
+    user-select: none;
+}
+
+.watermark:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+
+.watermark-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
 }

@@ -560,3 +560,34 @@ const tick = () => {
 };
 
 tick();
+
+/**
+ * Music Player
+ */
+const audio = new Audio("./waltz of miserable wretches.mp3");
+audio.loop = true;
+audio.volume = 0.5;
+
+let isPlaying = false;
+
+const musicToggle = document.getElementById("music-toggle");
+const playIcon = document.getElementById("play-icon");
+const pauseIcon = document.getElementById("pause-icon");
+const equalizer = document.getElementById("equalizer");
+
+musicToggle.addEventListener("click", () => {
+  if (isPlaying) {
+    audio.pause();
+    playIcon.classList.remove("hidden");
+    pauseIcon.classList.add("hidden");
+    equalizer.classList.remove("playing");
+    equalizer.classList.add("paused");
+  } else {
+    audio.play();
+    playIcon.classList.add("hidden");
+    pauseIcon.classList.remove("hidden");
+    equalizer.classList.remove("paused");
+    equalizer.classList.add("playing");
+  }
+  isPlaying = !isPlaying;
+});
