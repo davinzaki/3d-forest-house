@@ -391,27 +391,29 @@ for (let i = 0; i < 7; i++) {
   landGroup.add(cloudGroup);
 }
 
+const fireflySphere = new THREE.SphereGeometry(0.05, 8, 8);
+
 // fireflies
 const fireflies = [];
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 10; i++) {
   const fireFly = new THREE.Group();
 
   const fireFlyMesh = new THREE.Mesh(
-    new THREE.SphereGeometry(0.05),
+    fireflySphere,
     new THREE.MeshBasicMaterial({
       color: 0xffff00,
       transparent: true,
     }),
   );
 
-  const fireFlyLight = new THREE.PointLight(0xffff00);
+  const fireFlyLight = new THREE.PointLight(0xffff00, 1, 2, 2);
 
   fireFly.add(fireFlyMesh, fireFlyLight);
 
   fireFly.position.y = Math.random() * 5;
 
-  fireFly.position.x = (Math.random() - 0.5) * 20;
-  fireFly.position.z = (Math.random() - 0.5) * 20;
+  fireFly.position.x = (Math.random() - 0.5) * 10;
+  fireFly.position.z = (Math.random() - 0.5) * 10;
 
   fireflies.push(fireFly);
 
@@ -543,9 +545,11 @@ const tick = () => {
 
   fireflies.forEach((fireFly, index) => {
     const angle = elapsedTime * 0.5 + index;
-    fireFly.position.x += Math.cos(angle) * 0.02;
-    fireFly.position.z += Math.sin(angle) * 0.02;
-    fireFly.position.y = 1 + Math.abs(Math.sin(elapsedTime + index)) * 2;
+    fireFly.position.x = Math.cos(angle) * 4;
+    fireFly.position.z = Math.sin(angle) * 4;
+
+    // fireFly.position.y = 1 + Math.abs(Math.sin(elapsedTime + index)) * 2;
+    fireFly.position.y += Math.sin(elapsedTime + index) * 0.005;
 
     fireFly.children[0].material.opacity =
       1 - Math.abs(Math.sin(elapsedTime * 3 + index) * 1);
